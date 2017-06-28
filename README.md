@@ -40,5 +40,3 @@ The script will create a new Mongo database with the name `facebook` and the fol
 * `reactions`
 
 Finally, execute `main.py`: `$ ./main.py`
-
-NOTE: This script uses Python 3.5.2
