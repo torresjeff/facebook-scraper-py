@@ -1,4 +1,8 @@
 {
+    "credentials": {
+        "appId": "<your-app-id>",
+        "appSecret": "<your-app-secret>"
+    },
     "pages": [
         {"nombre": "Noticias Caracol", "id": 216740968376511},
         {"nombre": "El Tiempo", "id": 148349507804},
