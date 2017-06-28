@@ -1,0 +1,30 @@
+{
+    "pages": [
+        {"nombre": "Noticias Caracol", "id": 216740968376511},
+        {"nombre": "El Tiempo", "id": 148349507804},
+        {"nombre": "El Espectador", "id": 14302129065},
+        {"nombre": "Noticias RCN", "id": 154413711236788},
+        {"nombre": "Revista Semana", "id": 97041406678},
+        {"nombre": "El Heraldo", "id": 21935701184},
+        {"nombre": "Álvaro Uribe Vélez", "id": 45242794557},
+        {"nombre": "Juan Manuel Santos", "id": 330825443903},
+
+        {"nombre": "El Colombiano", "id": 126450910743068},
+        {"nombre": "El Universal", "id": 127926969701},
+        {"nombre": "Citytv.com.co", "id": 83065559474},
+        {"nombre": "Claudia Lopez", "id": 158190387560587},
+        {"nombre": "Partido Alianza Verde", "id": 307867347023},
+        {"nombre": "Presidencia de la República de Colombia", "id": 186850511364615},
+        {"nombre": "Diario La República", "id": 261660823858377},
+
+        {"nombre": "Centro democratico", "id": 370492339735164},
+        {"nombre": "La Silla Vacía", "id": 86869798098},
+        {"nombre": "Partido Cambio Radical", "id": 159514754069267},
+        {"nombre": "Partido Liberal", "id": 154720731223933},
+        {"nombre": "Fiscalía General de la Nación Colombia", "id": 167327019982954},
+        {"nombre": "Senado Colombia", "id": 155088471199849},
+        {"nombre": "Partido de la U", "id": 135774089917229},
+        {"nombre": "Polo Democrático Alternativo", "id": 229299467135378},
+        {"nombre": "Partido Conservador Colombiano", "id": 104334216321568}
+    ]
+}
