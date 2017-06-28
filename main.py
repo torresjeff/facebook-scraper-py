@@ -83,7 +83,7 @@ class Scraper:
             except KeyError as e:
                 # When there are no more pages (['paging']['next']), break from the
                 # loop and end the script.
-                traceback.print_exc()
+                #traceback.print_exc()
                 print(e)
                 return
         
