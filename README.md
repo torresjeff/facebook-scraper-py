@@ -3,7 +3,7 @@ Facebook scraper made in Python 3 that stores posts, reactions and comments of a
 
 ## Dependencies
 * Python 3.5.2
-* pip: `sudo apt-get install python3-pip`
+* pip: `$ sudo apt-get install python3-pip`
 * PyMongo: `$ pip3 install pymongo`
 
 ## Usage
