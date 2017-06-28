@@ -9,7 +9,7 @@ Facebook scraper made in Python 3 that stores posts, reactions and comments of a
 ## Usage
 * Create a Facebook app in the [Developer Portal](https://developers.facebook.com/)
 * Spin up a MongoDB service in your machine (must be localhost).
-* Specify the pages that you want to scrape in a file called `config.json` at the root of the folder
+* Specify the pages that you want to scrape in a file called `config.json` (not `config.all.json`) at the root of the folder
 
 Your `config.json` must look something like this:
 ```
