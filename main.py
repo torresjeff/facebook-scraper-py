@@ -2,7 +2,6 @@
 
 import signal
 import time
-import facebook
 import threading
 import requests
 import json
@@ -40,7 +39,7 @@ class Scraper:
         # TODO: extraer posts nuevos, buscar la fecha mas reciente que se busco
         # TODO: poner _id como el id del post/comment/page
         last_date = '2016-01-01' # TODO: cambiar por el verdadero last date
-        request_url = base_url + page_id + '/posts?pretty=0&since=' + last_date + '&limit=100&access_token=' + token
+        request_url = base_url + page_id + '/posts?fields=created_time,story,message,name,description&pretty=0&since=' + last_date + '&limit=100&access_token=' + token
         posts = requests.get(request_url).json()
 
         # Keep getting posts until we've reached the end
