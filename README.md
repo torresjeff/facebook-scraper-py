@@ -1,5 +1,5 @@
 # facebook-scraper-py
-Facebook scraper made in Python that stores posts, reactions and comments of a page in a Mongo database.
+Facebook scraper made in Python 3 that stores posts, reactions and comments of a page in a Mongo database.
 
 ## Usage
 * Create a Facebook app in the [Developer Portal](https://developers.facebook.com/)
@@ -35,3 +35,4 @@ The script will create a new Mongo database with the name `facebook` and the fol
 * `reactions`
 
 Finally, execute `main.py`: `./main.py`
+NOTE: This script uses Python 3.5.2
