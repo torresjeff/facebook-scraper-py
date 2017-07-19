@@ -5,6 +5,7 @@ Facebook scraper made in Python 3 that stores posts, reactions and comments of a
 * Python 3.5.2
 * pip: `$ sudo apt-get install python3-pip`
 * PyMongo: `$ pip3 install pymongo`
+* python-dateutil: `pip3 install python-dateutil`
 
 ## Usage
 * Create a Facebook app in the [Developer Portal](https://developers.facebook.com/)
@@ -31,7 +32,7 @@ Your `config.json` must look something like this:
 }
 ```
 * The `credentials` object will store the credentials of your app in Facebook.
-* The `pages` array requires only the `id` property, which is the ID of the page you want to scrape. Anything else will be ignored, but it is still a good idea to at least put the name of the page to know what you're referencing.
+* The `pages` array requires only the `id` property, which is the ID of the page you want to scrape.
 * You can find the page ID by going to [Find my Facebook ID](https://findmyfbid.com/) and entering the link of the page.
 
 The script will create a new Mongo database with the name `facebook` and the following collections:
