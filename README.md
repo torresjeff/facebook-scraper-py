@@ -6,6 +6,7 @@ Facebook scraper made in Python 3 that stores posts, reactions and comments of a
 * pip: `$ sudo apt-get install python3-pip`
 * PyMongo: `$ pip3 install pymongo`
 * python-dateutil: `pip3 install python-dateutil`
+* urllib3: `pip3 install urllib3`
 
 ## Usage
 * Create a Facebook app in the [Developer Portal](https://developers.facebook.com/)
