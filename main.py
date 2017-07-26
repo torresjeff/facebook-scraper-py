@@ -57,11 +57,9 @@ class Scraper:
             #now = datetime.datetime.now()
             #return str(now.year) + '-' + str(now.month) + '-' + str(now.day)
             print("No recent date found for page", page_id)
-            #logger.write("%s => No recent date found for page %s\n" % (datetime.datetime.now(), page_id))
             return 'today'
         else:
             print("We have already extracted posts from page", page_id)
-            #logger.write("%s => We have already extracted posts from page %s\n" % (datetime.datetime.now(), page_id))
             recent_date = date[0]['created_time']
             return str(recent_date.year) + '-' + str(recent_date.month) + '-' + str(recent_date.day)
 
@@ -75,35 +73,31 @@ class Scraper:
             #now = datetime.datetime.now()
             #return str(now.year) + '-' + str(now.month) + '-' + str(now.day)
             print("No oldest date found for page", page_id)
-            #logger.write("%s => No oldest date found for page %s\n" % (datetime.datetime.now(), page_id))
             return 'today'
         else:
             print("We have already extracted posts from page", page_id)
-            #logger.write("%s => We have already extracted posts from page %s\n" % (datetime.datetime.now(), page_id))
             oldest_date = date[0]['created_time']
             return str(oldest_date.year) + '-' + str(oldest_date.month) + '-' + str(oldest_date.day)
         
     def fetch_posts(self, page_id):
         since_date = '2016-01-01' # Por default buscar hasta enero del 2016
         now = datetime.datetime.utcnow()
-        until_date = str(now.year) + '-' + str(now.month) + '-' + str(now.day + 1) # Por default empezar a buscar desde hoy (UTC time)
+        now += datetime.timedelta(days=1)
+        until_date = str(now.year) + '-' + str(now.month) + '-' + str(now.day) # Por default empezar a buscar desde hoy (UTC time)
         
         # First, get most recent posts since the last time we scraped
         # If we haven't extracted posts for this page, then skip this step and start extracting from today 
         most_recent_date = self.get_most_recent_date(page_id)
         if most_recent_date != 'today':
             print("most recent date:", most_recent_date)
-            #logger.write("%s => page %s most recent date: %s\n" % (datetime.datetime.now(), page_id, most_recent_date))
             self.fetch_posts_helper(page_id, most_recent_date, until_date, most_recent=True) # Search for most recent posts that haven't yet been scraped (ie. from most recent extracted posts and forward)
             print("Finished extracting most recent posts for page", page_id)
-            #logger.write("%s => Finished extracting most recent posts for page %s\n" % (datetime.datetime.now(), page_id))
         
         # Second, start extracting from the oldest known date
         # If we haven't extracted posts yet for thiss page, then start from today
         oldest_date = self.get_oldest_date(page_id)
         if oldest_date != 'today' and oldest_date != since_date:
             print("oldest date:", oldest_date)
-            #logger.write("%s => page %s oldest date: %s\n" % (datetime.datetime.now(), page_id, oldest_date))
             self.fetch_posts_helper(page_id, since_date, oldest_date)
 
         # If there is no recent or oldest date, then just start from today until 2016-01-01
@@ -139,7 +133,6 @@ class Scraper:
                         post['shares'] = post['shares']['count']
 
                     print("post id:", post['_id'])
-                    #logger.write("%s => post id: %s\n" % (datetime.datetime.now(), post['_id']))
                     reactions.append(self.fetch_reactions(post['_id']))
                     comments.extend(self.fetch_comments(post['_id']))
 
@@ -176,7 +169,6 @@ class Scraper:
                 
                 if kill_now:
                     print("Exiting in 5 seconds...")
-                    #logger.write("%s => Exiting in 5 seconds...\n" % (datetime.datetime.now()))
                     time.sleep(5)
                     return
                 else:
@@ -188,7 +180,6 @@ class Scraper:
                 # loop and end the script.
                 #traceback.print_exc()
                 print("Finished searching posts for page", page_id)
-                #logger.write("%s => Finished searching posts for page %s\n"  % (datetime.datetime.now(), page_id))
                 return
             except pymongo.errors.BulkWriteError as bwe:
                 logger.error(bwe.details)
@@ -212,7 +203,6 @@ class Scraper:
         reactions['wow'] = reactions['wow']['summary']['total_count']
         
         print("Finished searching reactions for post", post_id)
-        #logger.write("%s => Finished searching reactions for post %s\n" % (datetime.datetime.now(), post_id))
         return reactions
 
     def fetch_comments(self, post_id):
@@ -237,7 +227,6 @@ class Scraper:
             comment['created_time'] = parse(comment['created_time'])
         
         print("Finished fetching comments for post", post_id)
-        #logger.write("%s => Finished fetching comments for post %s\n"  % (datetime.datetime.now(), post_id))
         return comments
 
 
@@ -267,7 +256,6 @@ if __name__ == '__main__':
         threads.append(thread)
         threads[i].start()
         print("Started thread for page", page_name, "-", page_id)
-        #logger.write("%s => Started thread for page %s - %s\n" % (datetime.datetime.now(), page_name, page_id))
 
     for thread in threads:
         thread.join()
@@ -278,19 +266,14 @@ if __name__ == '__main__':
     #print("index info posts:", postsColl.index_information())
     if date_index not in postsColl.index_information():
         print("There is no 'created_time' index in 'posts' collection. Creating index now...")
-        #logger.write("%s => There is no 'created_time' index in 'posts' collection. Creating index now...\n" % (datetime.datetime.now()))
         postsColl.create_index(date_index, name='created_time')
         print("Finished creating index for 'posts' collection")
-        #logger.write("%s => Finished creating index for 'posts' collection\n" % (datetime.datetime.now()))
     #print("index info comments:", commentsColl.index_information())
     if date_index not in commentsColl.index_information():
         print("There is no 'created_time' index in 'comments' collection. Creating index now...")
-        #logger.write("%s => There is no 'created_time' index in 'comments' collection. Creating index now...\n" % (datetime.datetime.now()))
         commentsColl.create_index(date_index, name='created_time')
         print("Finished creating index for 'comments' collection")
-        #logger.write("%s => Finished creating index for 'comments' collection\n" % (datetime.datetime.now()))
 
     print("End of the program. Killed gracefully.")
-    #logger.write("%s => End of the program. Killed gracefully.\n" % (datetime.datetime.now()))
 
     #logger.close()
