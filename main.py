@@ -61,7 +61,12 @@ class Scraper:
         else:
             print("We have already extracted posts from page", page_id)
             recent_date = date[0]['created_time']
-            return str(recent_date.year) + '-' + str(recent_date.month) + '-' + str(recent_date.day)
+            #print("Most recent date in mongo before timedelta:", recent_date.isoformat())
+            recent_date += datetime.timedelta(seconds=1)
+            #print("Most recent date in mongo after timedelta:", recent_date.isoformat())
+            return recent_date.isoformat()
+            #time.sleep(10)
+            #return str(recent_date.year) + '-' + str(recent_date.month) + '-' + str(recent_date.day)
 
     # Get the oldest date where posts were extracted for a specific page in the format 'YYYY-MM-dd' or else return 'today' 
     def get_oldest_date(self, page_id):
@@ -77,13 +82,15 @@ class Scraper:
         else:
             print("We have already extracted posts from page", page_id)
             oldest_date = date[0]['created_time']
-            return str(oldest_date.year) + '-' + str(oldest_date.month) + '-' + str(oldest_date.day)
+            oldest_date -= datetime.timedelta(seconds=1)
+            return oldest_date.isoformat()
+            #return str(oldest_date.year) + '-' + str(oldest_date.month) + '-' + str(oldest_date.day)
         
     def fetch_posts(self, page_id):
         since_date = '2016-01-01' # Por default buscar hasta enero del 2016
         now = datetime.datetime.utcnow()
         now += datetime.timedelta(days=1)
-        until_date = str(now.year) + '-' + str(now.month) + '-' + str(now.day) # Por default empezar a buscar desde hoy (UTC time)
+        until_date = now.isoformat()
         
         # First, get most recent posts since the last time we scraped
         # If we haven't extracted posts for this page, then skip this step and start extracting from today 
@@ -107,11 +114,11 @@ class Scraper:
 
     def fetch_posts_helper(self, page_id, from_date, until_date, most_recent=False):
         global kill_now
-        # TODO: revisar si hay que poner todo en minusculas y quitar acentos    
+        # TODO: revisar si hay que poner todo en minusculas y quitar acentos
         # TODO: extraer posts nuevos, buscar la fecha mas reciente que se busco
         # TODO: poner _id como el id del post/comment/page
         # TODO: no repetir los posts de un dia
-        
+        print("Fetching posts for page", page_id, "from", from_date, "until", until_date)
 
         request_url = base_url + page_id + '/posts?fields=created_time,message,name,description,shares,link&pretty=0&since=' + from_date + '&until=' + until_date + '&limit=100&access_token=' + token
         posts = requests.get(request_url).json()
