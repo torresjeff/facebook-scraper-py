@@ -21,14 +21,14 @@ Your `config.json` must look something like this:
         "appSecret": "<your-app-secret>"
     },
     "pages": [
-        {"nombre": "Noticias Caracol", "id": 216740968376511},
-        {"nombre": "El Tiempo", "id": 148349507804},
-        {"nombre": "El Espectador", "id": 14302129065},
-        {"nombre": "Noticias RCN", "id": 154413711236788},
-        {"nombre": "Revista Semana", "id": 97041406678},
-        {"nombre": "El Heraldo", "id": 21935701184},
-        {"nombre": "Álvaro Uribe Vélez", "id": 45242794557},
-        {"nombre": "Juan Manuel Santos", "id": 330825443903}
+        {"name": "Noticias Caracol", "id": 216740968376511},
+        {"name": "El Tiempo", "id": 148349507804},
+        {"name": "El Espectador", "id": 14302129065},
+        {"name": "Noticias RCN", "id": 154413711236788},
+        {"name": "Revista Semana", "id": 97041406678},
+        {"name": "El Heraldo", "id": 21935701184},
+        {"name": "Álvaro Uribe Vélez", "id": 45242794557},
+        {"name": "Juan Manuel Santos", "id": 330825443903}
     ]
 }
 ```
