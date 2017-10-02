@@ -1,0 +1,1 @@
+./mongo-connector --unique-key=id --namespace-set=facebook.comments -m localhost:27017 -t http://localhost:8983/solr/sentinel -d solr_doc_manager
