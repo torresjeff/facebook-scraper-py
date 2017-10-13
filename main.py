@@ -135,6 +135,8 @@ class Scraper:
                 for i, post in enumerate(posts['data']):
                     post['_id'] = post.pop('id', None)
                     post['created_time'] = parse(post['created_time'])
+                    post['month'] = post['created_time'].month
+                    post['year'] = post['created_time'].year
                     
                     if 'shares' in post:
                         post['shares'] = post['shares']['count']
@@ -232,6 +234,8 @@ class Scraper:
         for comment in comments:
             comment['_id'] = comment.pop('id', None)
             comment['created_time'] = parse(comment['created_time'])
+            comment['month'] = post['created_time'].month
+            comment['year'] = post['created_time'].year
         
         print("Finished fetching comments for post", post_id)
         return comments
