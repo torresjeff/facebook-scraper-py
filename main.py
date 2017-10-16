@@ -130,7 +130,7 @@ class Scraper:
         first_time = True
         while True:
             try:
-                reactions = []
+                #reactions = []
                 comments = []
                 for i, post in enumerate(posts['data']):
                     post['_id'] = post.pop('id', None)
@@ -142,7 +142,14 @@ class Scraper:
                         post['shares'] = post['shares']['count']
 
                     print("post id:", post['_id'])
-                    reactions.append(self.fetch_reactions(post['_id']))
+                    reactions = self.fetch_reactions(post['_id'])
+                    post['angry'] = reactions['angry']
+                    post['like'] = reactions['like']
+                    post['haha'] = reactions['haha']
+                    post['sad'] = reactions['sad']
+                    post['love'] = reactions['love']
+                    post['wow'] = reactions['wow']
+                    #reactions.append(self.fetch_reactions(post['_id']))
                     comments.extend(self.fetch_comments(post['_id']))
 
                     #print("post date:", parse(post['created_time']))
@@ -153,8 +160,8 @@ class Scraper:
                     if first_time:
                         for post in posts['data']:
                             postsColl.replace_one({'_id': post['_id']}, post, True)
-                        for reaction in reactions:
-                            reactionsColl.replace_one({'_id': reaction['_id']}, reaction, True)
+                        #for reaction in reactions:
+                            #reactionsColl.replace_one({'_id': reaction['_id']}, reaction, True)
                         for comment in comments:
                             commentsColl.replace_one({'_id': comment['_id']}, comment, True)
                         first_time = False
@@ -163,16 +170,16 @@ class Scraper:
                         if len(posts['data']) > 0:
                             postsColl.insert_many(posts['data'])
                         # Insert reactions to 'reactions' collection
-                        if len(reactions) > 0:
-                            reactionsColl.insert_many(reactions)
+                        #if len(reactions) > 0:
+                            #reactionsColl.insert_many(reactions)
                         # Insert comments to 'comments' collection
                         if len(comments) > 0:
                             commentsColl.insert_many(comments)
                 else: # Else we could be inserting a previously inserted document, so we need to upsert
                     for post in posts['data']:
                         postsColl.replace_one({'_id': post['_id']}, post, True)
-                    for reaction in reactions:
-                        reactionsColl.replace_one({'_id': reaction['_id']}, reaction, True)
+                    #for reaction in reactions:
+                        #reactionsColl.replace_one({'_id': reaction['_id']}, reaction, True)
                     for comment in comments:
                         commentsColl.replace_one({'_id': comment['_id']}, comment, True)
                 
@@ -234,8 +241,8 @@ class Scraper:
         for comment in comments:
             comment['_id'] = comment.pop('id', None)
             comment['created_time'] = parse(comment['created_time'])
-            comment['month'] = post['created_time'].month
-            comment['year'] = post['created_time'].year
+            comment['month'] = comment['created_time'].month
+            comment['year'] = comment['created_time'].year
         
         print("Finished fetching comments for post", post_id)
         return comments
