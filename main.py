@@ -159,17 +159,17 @@ class Scraper:
                     # TODO: first_time podria reemplazar la variable most_recent
                     if first_time:
                         for post in posts['data']:
-                            postsColl.replace_one({'_id': post['_id']}, post, True)
+                            postsColl.update({'_id': post['_id']}, post, upsert=True)
                         #for reaction in reactions:
                             #reactionsColl.replace_one({'_id': reaction['_id']}, reaction, True)
                         for comment in comments:
-                            commentsColl.replace_one({'_id': comment['_id']}, comment, True)
+                            commentsColl.update({'_id': comment['_id']}, comment, upsert=True)
                         first_time = False
                     else:
                         for post in posts['data']:
-                            postsColl.replace_one({'_id': post['_id']}, post, True)
+                            postsColl.update({'_id': post['_id']}, post, upsert=True)
                         for comment in comments:
-                            commentsColl.replace_one({'_id': comment['_id']}, comment, True)
+                            commentsColl.update({'_id': comment['_id']}, comment, upsert=True)
                         # Insert posts to 'posts' collection
                         #if len(posts['data']) > 0:
                             #postsColl.insert_many(posts['data'])
@@ -178,11 +178,11 @@ class Scraper:
                             #commentsColl.insert_many(comments)
                 else: # Else we could be inserting a previously inserted document, so we need to upsert
                     for post in posts['data']:
-                        postsColl.replace_one({'_id': post['_id']}, post, True)
+                        postsColl.update({'_id': post['_id']}, post, upsert=True)
                     #for reaction in reactions:
                         #reactionsColl.replace_one({'_id': reaction['_id']}, reaction, True)
                     for comment in comments:
-                        commentsColl.replace_one({'_id': comment['_id']}, comment, True)
+                        commentsColl.update({'_id': comment['_id']}, comment, upsert=True)
                 
                 if kill_now:
                     print("Exiting in 5 seconds...")
