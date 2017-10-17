@@ -11,7 +11,6 @@ import pymongo
 import datetime
 import logging
 import sys
-from pymongo import ReplaceOne
 
 client = pymongo.MongoClient("localhost", 27017)
 db = client.facebook # use the facebook database (automatically created if it doesn't exist)
@@ -154,19 +153,11 @@ class Scraper:
                     comments.extend(self.fetch_comments(post['_id']))
 
                     #print("post date:", parse(post['created_time']))
-                operations = []
+                
                 for post in posts['data']:
-                    operations.append(
-                        ReplaceOne({'_id': post['_id']}, post, upsert=True)
-                    )
-                postsColl.bulk_write(operations)
-
-                operations = []
+                    postsColl.update({'_id': post['_id']}, post, upsert=True)
                 for comment in comments:
-                    operations.append(
-                        ReplaceOne({'_id': comment['_id']}, comment, upsert=True)
-                    )
-                commentsColl.bulk_write(operations)
+                    commentsColl.update({'_id': comment['_id']}, comment, upsert=True)
                 
                 if kill_now:
                     print("Exiting in 5 seconds...")
