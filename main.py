@@ -11,6 +11,7 @@ import pymongo
 import datetime
 import logging
 import sys
+from pymongo import ReplaceOne
 
 client = pymongo.MongoClient("localhost", 27017)
 db = client.facebook # use the facebook database (automatically created if it doesn't exist)
@@ -153,36 +154,19 @@ class Scraper:
                     comments.extend(self.fetch_comments(post['_id']))
 
                     #print("post date:", parse(post['created_time']))
-                
-                if not most_recent:
-                    # Evitar duplicate keys la primera vez que se esta empezando a extraer desde los posts
-                    # TODO: first_time podria reemplazar la variable most_recent
-                    if first_time:
-                        for post in posts['data']:
-                            postsColl.update({'_id': post['_id']}, post, upsert=True)
-                        #for reaction in reactions:
-                            #reactionsColl.replace_one({'_id': reaction['_id']}, reaction, True)
-                        for comment in comments:
-                            commentsColl.update({'_id': comment['_id']}, comment, upsert=True)
-                        first_time = False
-                    else:
-                        for post in posts['data']:
-                            postsColl.update({'_id': post['_id']}, post, upsert=True)
-                        for comment in comments:
-                            commentsColl.update({'_id': comment['_id']}, comment, upsert=True)
-                        # Insert posts to 'posts' collection
-                        #if len(posts['data']) > 0:
-                            #postsColl.insert_many(posts['data'])
-                        # Insert comments to 'comments' collection
-                        #if len(comments) > 0:
-                            #commentsColl.insert_many(comments)
-                else: # Else we could be inserting a previously inserted document, so we need to upsert
-                    for post in posts['data']:
-                        postsColl.update({'_id': post['_id']}, post, upsert=True)
-                    #for reaction in reactions:
-                        #reactionsColl.replace_one({'_id': reaction['_id']}, reaction, True)
-                    for comment in comments:
-                        commentsColl.update({'_id': comment['_id']}, comment, upsert=True)
+                operations = []
+                for post in posts['data']:
+                    operations.append(
+                        ReplaceOne({'_id': post['_id']}, post, upsert=True)
+                    )
+                postsColl.bulk_write(operations)
+
+                operations = []
+                for comment in comments:
+                    operations.append(
+                        ReplaceOne({'_id': comment['_id']}, comment, upsert=True)
+                    )
+                commentsColl.bulk_write(operations)
                 
                 if kill_now:
                     print("Exiting in 5 seconds...")
