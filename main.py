@@ -166,15 +166,16 @@ class Scraper:
                             commentsColl.replace_one({'_id': comment['_id']}, comment, True)
                         first_time = False
                     else:
+                        for post in posts['data']:
+                            postsColl.replace_one({'_id': post['_id']}, post, True)
+                        for comment in comments:
+                            commentsColl.replace_one({'_id': comment['_id']}, comment, True)
                         # Insert posts to 'posts' collection
-                        if len(posts['data']) > 0:
-                            postsColl.insert_many(posts['data'])
-                        # Insert reactions to 'reactions' collection
-                        #if len(reactions) > 0:
-                            #reactionsColl.insert_many(reactions)
+                        #if len(posts['data']) > 0:
+                            #postsColl.insert_many(posts['data'])
                         # Insert comments to 'comments' collection
-                        if len(comments) > 0:
-                            commentsColl.insert_many(comments)
+                        #if len(comments) > 0:
+                            #commentsColl.insert_many(comments)
                 else: # Else we could be inserting a previously inserted document, so we need to upsert
                     for post in posts['data']:
                         postsColl.replace_one({'_id': post['_id']}, post, True)
