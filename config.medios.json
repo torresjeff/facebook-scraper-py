@@ -1,0 +1,32 @@
+{
+    "credentials": {
+        "appId": "140606589831559",
+        "appSecret": "359e8652c1909aea30ae45830eb2e7c6"
+    },
+    "pages": [
+        {"name": "Noticias Caracol", "id": 216740968376511},
+		{"name": "El País (Cali)", "id": 171280749364},
+		{"name": "El Tiempo", "id": 148349507804},
+		{"name": "El Espectador", "id": 14302129065},
+		{"name": "Noticias RCN", "id": 154413711236788},
+		{"name": "Revista Semana", "id": 97041406678},
+		{"name": "El Heraldo", "id": 21935701184},
+		{"name": "Blu Radio", "id": 128385783971639},
+		{"name": "El Colombiano", "id": 126450910743068},
+		{"name": "El Universal", "id": 127926969701},
+		{"name": "La FM", "id": 182886731806631},
+		{"name": "Caracol Radio", "id": 106064209472141},
+		{"name": "Revista Dinero", "id": 62260589592},
+		{"name": "Diario La República", "id": 261660823858377},
+		{"name": "RCN Radio", "id": 198058725653},
+		{"name": "W Radio Colombia", "id": 316803178353796},
+		{"name": "Portafolio.co", "id": 281595673240},
+		{"name": "Kienyke", "id": 110814122315019},
+		{"name": "La Silla Vacía", "id": 86869798098},
+		{"name": "El Meridiano (Córdoba y Sucre)", "id": 1386711734907174},
+		{"name": "Con la Oreja Roja", "id": 310775239131201},
+		{"name": "Diario del Sur (Nariño)", "id": 133667836665726},
+		{"name": "Diario El Nuevo Siglo", "id": 1867749136821912},
+		{"name": "Radio Santa Fé", "id": 27541696956}
+    ]
+}
