@@ -11,6 +11,7 @@ import pymongo
 import datetime
 import logging
 import sys
+from optparse import OptionParser
 
 client = pymongo.MongoClient("localhost", 27017)
 db = client.facebook # use the facebook database (automatically created if it doesn't exist)
@@ -225,8 +226,12 @@ class Scraper:
 
 
 if __name__ == '__main__':
+    parser = OptionParser()
+    parser.add_option("-f", "--file", dest="file", default="config.json", help="name of the file with the configuration")
+    (options, args) = parser.parse_args()
+    print(options)
     # TODO: verificar env variable de config antes
-    with open('config.json') as config:
+    with open(options.file) as config:
         data = json.load(config)
     
     app_id = data['credentials']['appId']
