@@ -1,0 +1,19 @@
+{
+    "credentials": {
+        "appId": "140606589831559",
+        "appSecret": "359e8652c1909aea30ae45830eb2e7c6"
+    },
+    "pages": [
+        {"name": "Álvaro Uribe Vélez", "id": 45242794557},
+        {"name": "Juan Manuel Santos", "id": 330825443903},
+        {"name": "Claudia Lopez", "id": 158190387560587},
+        {"name": "Daniel Samper Ospina", "id": 1479801618944626},
+        {"name": "Matador", "id": 1500134680243350},
+        {"name": "Jorge Enrique Robledo Castillo", "id": 91251840313},
+        {"name": "Salud Hernández-Mora", "id": 1614881202125316},
+        {"name": "Vladdo", "id": 1046580858702732},
+        {"name": "María Jimena Duzán", "id": 326097117566387},
+        {"name": "Yolanda Ruiz", "id": 112844398901531},
+        {"name": "José Manuel Acevedo", "id": 485059051594792}
+    ]
+}
